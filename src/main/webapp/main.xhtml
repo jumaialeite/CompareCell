@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+    
+        <title>Compare Cell</title>
+		
+		<!-- Bootstrap -->
+		<h:outputStylesheet library="bootstrap" name="css/bootstrap.min.css"/>
+		<h:outputScript library="bootstrap" name="js/bootstrap.min.js"/>
+		
+		<h:outputStylesheet library="css" name="css.css"/>
+
+    </h:head>
+    
+    <h:body>
+    
+    	<p:growl id="growl_info" showDetail="false" sticky="false" autoUpdate="true" globalOnly="true" severity="info"/>
+    	<p:growl id="growl_error" showDetail="false" sticky="false" autoUpdate="true" globalOnly="true" severity="error"/>
+    	<h:form>
+	    	<nav class="navbar navbar-default navbar-fixed-top">
+	  			<div class="container">
+	  				<div class="navbar-header">
+	  					<p:commandLink styleClass="navbar-brand">
+		    				<h:outputText value="Compare Cell"/>
+		    			</p:commandLink>
+		    		</div>
+		    		<div class="collapse navbar-collapse navbar-left" id="bs-example-navbar-collapse-1">
+				    	<ul class="nav navbar-nav">
+				    		<li><p:commandLink value="Home" update="@([id$=contentPanel])" action="#{cellularBean.prepareChoose}"/></li>
+				        </ul>
+				    </div>
+	  			
+	  			</div>
+	  		</nav>
+  		</h:form>
+    
+        <!-- Informação principal do sistema -->
+        
+        <h:panelGroup id="contentPanel" layout="block" styleClass="container">
+
+            <ui:include src="cellular.xhtml" />
+
+        </h:panelGroup>
+
+    </h:body>
+</html>

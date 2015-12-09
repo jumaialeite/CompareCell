@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+	<h:form>
+		<h:panelGroup rendered="#{cellularBean.chooseState}">
+			<div class="page-header">
+				<h3>Celulares Cadastrados</h3>
+			</div>
+
+			<p:commandButton update="@form" value="Compare"
+				action="#{cellularBean.compare}"
+				styleClass="btn btn-lg btn-primary btn-flat" />
+			<p:commandButton update="@form" value="Limpar"
+				action="#{cellularBean.cleanSelection}"
+				styleClass="btn btn-lg btn-default btn-flat" />
+
+			<p:dataTable id="cellularsDT" value="#{cellularBean.cellulars}"
+				var="cellular" selection="#{cellularBean.selectedCellulars}"
+				rowKey="#{cellular.id}" styleClass="table table-striped"
+				emptyMessage="Não existem celulares cadastrados">
+
+				<p:column selectionMode="multiple"
+					style="width:16px;text-align:center;" />
+				<p:column headerText="Nome">
+					<h:graphicImage library="images" name="#{cellular.image}"
+						height="50" />
+					<p:spacer width="15" />
+					<h:outputText value="#{cellular.name}" />
+				</p:column>
+			</p:dataTable>
+
+		</h:panelGroup>
+
+		<h:panelGroup rendered="#{cellularBean.compareState}">
+			<div class="page-header">
+				<h3>Comparação</h3>
+			</div>
+
+			<p:commandButton value="Voltar" action="#{cellularBean.backChoose}"
+				update="@form" styleClass="btn btn-lg btn-primary btn-flat" />
+
+			<p:dataTable var="rowName" value="#{cellularBean.rowNames}"
+				rowIndexVar="rowIdx" styleClass="table table-striped">
+				<p:column headerText="" styleClass="ui-widget-header">
+					<h:outputText value="#{rowName}" />
+				</p:column>
+
+				<p:columns var="columnName" value="#{cellularBean.columnNames}"
+					columnIndexVar="colIdx">
+
+					<f:facet name="header">
+						<p:commandButton styleClass="favourite-btn"
+							action="#{cellularBean.addFavourite(columnName)}" value=" "
+							alt="Favorito" update="@([id$=contentPanel])" />
+						<h:outputText value="#{columnName}" />
+					</f:facet>
+
+					<h:outputText value="#{cellularBean.getValue(columnName,rowName)}"
+						style="#{cellularBean.highlight(columnName,rowName)}" />
+
+				</p:columns>
+			</p:dataTable>
+		</h:panelGroup>
+
+		<h:panelGroup rendered="#{cellularBean.favouriteState}">
+			<div class="page-header">
+				<h3>Favoritos</h3>
+			</div>
+			<p:commandButton value="Voltar" action="#{cellularBean.backChoose}"
+				update="@form" styleClass="btn btn-lg btn-primary btn-flat" />
+			<p:dataTable var="cellular" value="#{cellularBean.cellulars}"
+				styleClass="table table-striped" rowIndexVar="row">
+				<p:column headerText="#">
+					<h:outputText value="#{row + 1}" />
+				</p:column>
+				<p:column headerText="Celular">
+					<h:outputText value="#{cellular.name}" />
+				</p:column>
+				<p:column headerText="Pontuação">
+					<h:outputText value="#{cellular.favourite}"/>
+				</p:column>
+			</p:dataTable>
+		</h:panelGroup>
+	</h:form>
+</ui:composition>
