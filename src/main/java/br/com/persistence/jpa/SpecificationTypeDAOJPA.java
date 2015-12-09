@@ -11,7 +11,7 @@ import br.com.persistence.dao.SpecificationTypeDAO;
 import br.com.persistence.entity.SpecificationType;
 
 @Stateless
-public class SpecificationTypeDAOJPA /*extends GenericDAOJPA<SpecificationType, Long>*/ implements SpecificationTypeDAO {
+public class SpecificationTypeDAOJPA implements SpecificationTypeDAO {
 	
     private EntityManager entityManager;
 	
