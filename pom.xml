@@ -1,10 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com</groupId>
 	<artifactId>CompareCell</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	<name>CompareCell</name>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -19,18 +21,16 @@
 
 	<dependencies>
 
-		<!-- TEST SCOPE -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>${primefaces.version}</version>
 		</dependency>
 
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-web-api</artifactId>
-			<version>${javaee.api.version}</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.4.1</version>
 		</dependency>
 
 		<dependency>
@@ -46,9 +46,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>${primefaces.version}</version>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>${javaee.api.version}</version>
 		</dependency>
 
 		<!-- PERSISTENCE -->
@@ -57,11 +57,11 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate-core-version}</version>
 			<exclusions>
-		        <exclusion>
-		            <groupId>org.jboss.logging</groupId>
-		            <artifactId>jboss-logging</artifactId>
-		        </exclusion>
-		    </exclusions>
+				<exclusion>
+					<groupId>org.jboss.logging</groupId>
+					<artifactId>jboss-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -70,11 +70,13 @@
 			<version>${postgresql.version}</version>
 		</dependency>
 		<!-- /PERSISTENCE -->
-		
+
+		<!-- TEST SCOPE -->
 		<dependency>
-		    <groupId>org.jboss.logging</groupId>
-		    <artifactId>jboss-logging</artifactId>
-		    <version>3.3.0.Final</version>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
@@ -100,6 +102,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webappDirectory>src/main/webapp</webappDirectory>
+				</configuration>
 			</plugin>
 
 			<plugin>
@@ -110,6 +116,13 @@
 					<jarName>${project.artifactId}</jarName>
 					<ejbVersion>3.2</ejbVersion>
 				</configuration>
+			</plugin>
+
+			<!-- GLASSFISH PLUGIN -->
+			<plugin>
+				<groupId>org.glassfish.maven.plugin</groupId>
+				<artifactId>maven-glassfish-plugin</artifactId>
+				<version>2.1</version>
 			</plugin>
 		</plugins>
 	</build>
