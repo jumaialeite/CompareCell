@@ -48,6 +48,8 @@ public class CellularTest {
 		daoSpecType = new SpecificationTypeDAOJPA();
 		daoSpecType.setEntityManager(entityManager);
 		
+		transaction = entityManager.getTransaction();
+		entityManager.setFlushMode(FlushModeType.COMMIT);
 		initDB = new InitDB(dao, daoSpec, daoSpecType);
 		transaction.begin();
 		initDB.fillDB();
@@ -70,7 +72,7 @@ public class CellularTest {
 	}
 	
 	@Test
-	public void list(){
+	public void listTest(){
 		transaction.begin();
 		List<Cellular> cellulars = dao.list(false);
 		transaction.commit();
@@ -80,7 +82,7 @@ public class CellularTest {
 	}
 	
 	@Test
-	public void retrieve(){
+	public void retrieveTest(){
 		transaction.begin();
 		List<Cellular> cellulars = dao.list(false);
 		transaction.commit();
@@ -97,7 +99,7 @@ public class CellularTest {
 	}
 	
 	@Test
-	public void favourite() {
+	public void favouriteTest() {
 		transaction.begin();
 		List<Cellular> cellulars = dao.list(true);
 		transaction.commit();
@@ -119,7 +121,7 @@ public class CellularTest {
 	}
 	
 	@Test
-	public void compare(){
+	public void compareTest(){
 		transaction.begin();
 		List<Cellular> cellulars = dao.list(false);
 		transaction.commit();
